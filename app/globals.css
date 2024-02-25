@@ -74,7 +74,9 @@
     @apply bg-background text-foreground;
   }
 }
-
+.auth{
+  @apply flex-center min-h-screen w-full bg-purple-100
+}
 .auth {
   @apply flex-center min-h-screen w-full bg-purple-100
 }
