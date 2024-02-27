@@ -19,7 +19,7 @@ if(!cached){
     }
 }
 
-export const connectToDB = async () => {
+export const connectToDatabase = async () => {
     if(cached.conn) return cached.conn;
     if(!MONGODB_URL) throw new Error("Missing mongodb url")
 
