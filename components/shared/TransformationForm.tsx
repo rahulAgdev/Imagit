@@ -25,6 +25,7 @@ import { useForm } from "react-hook-form";
 import { aspectRatioOptions, defaultValues, transformationTypes } from "@/constants";
 import { CustomField } from "./CustomField";
 import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils";
+import MediaUploader from "./MediaUploader";
 export const formSchema = z.object({
   title: z.string(),
   aspectRatio: z.string().optional(),
@@ -41,7 +42,7 @@ const TransformationForm = ({
     const [isTransforming, setIsTransforming] = useState(false)
     const [transformationConfig, setTransformationConfig] = useState(config)
     const transformationType = transformationTypes[type];
-    const [Image, setImage] = useState(data)
+    const [image, setImage] = useState(data)
     const [newTransformation, setNewTransformation] = useState<Transformations | null>(null)
     const [isPending, startTransition] = useTransition()
   const initialValues =
@@ -64,7 +65,8 @@ const TransformationForm = ({
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    // console.log(values);
+
   }
   const onSelectFieldHandler = (value: string, onChangeField: (value: string) => void) => {
     const imageSize = aspectRatioOptions[value as AspectRatioKey]
@@ -186,6 +188,23 @@ const TransformationForm = ({
                 )}
             </div>
         )}
+
+        <div className="media-uploader-field">
+          <CustomField 
+            control={form.control}
+            name="publicId"
+            className="flex size-full flex-col"
+            render={({field})=>(
+              <MediaUploader 
+                onValueChange = {field.onChange}
+                setImage = {setImage}
+                publicId = {field.value}
+                image = {image}
+                type={type}
+              />
+            )}
+          />
+        </div>
         <div className="flex flex-col gap-4">
 
         <Button type="button" className="submit-button capitalize" disabled={isTransforming || newTransformation === null} onClick={onTransformHandler}>
