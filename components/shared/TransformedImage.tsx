@@ -14,7 +14,7 @@ const TransformedImage = ({
   hasDownload = false,
 }: TransformedImageProps) => {
   const downloadHandler = () => {};
-  console.log("Image : ", image);
+  // console.log("Image : ", image);
   return (
     <div className="flex flex-col gap-4">
       <div className="flex-between">
